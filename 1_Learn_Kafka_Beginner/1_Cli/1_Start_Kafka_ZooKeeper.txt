@@ -1,0 +1,19 @@
+(1) Start ZooKepper
+>zookeeper-server-start.bat config/zookeeper.properties
+
+(2)Start Kafka
+>kafka-server-start.bat config/server.properties
+
+(3) kafka-topics  Create command
+
+>kafka-topics --zookeeper 127.0.0.1:2181 --topic first_topic -
+-create --partitions 3 --replication-factor 1
+
+(4) kafka-topic list
+>kafka-topics --zookeeper 127.0.0.1:2181 --list
+
+(5) kafka-topic description
+>kafka-topics --zookeeper 127.0.0.1:2181 first_topic --describe
+
+(6) kafka-topic delete
+>kafka-topics --zookeeper 127.0.0.1:2181 second_topic --delete
