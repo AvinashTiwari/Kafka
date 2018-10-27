@@ -17,3 +17,44 @@
 
 (6) kafka-topic delete
 >kafka-topics --zookeeper 127.0.0.1:2181 second_topic --delete
+
+(7) produing message
+>kafka-console-producer --broker-list 127.0.0.1:9092 --topic first_topic
+>Hello Avinash
+>lerning Kafka
+>Just amessage
+
+(8) ack kafka producer properties
+>kafka-console-producer --broker-list 127.0.0.1:90
+92 --topic first_topic --producer-property acks-all
+[2018-10-26 22:41:34,964] WARN The configuration 'acks-all' was supplied but isn
+'t a known config. (org.apache.kafka.clients.producer.ProducerConfig)
+>Some message that ack
+>fun learning
+
+(9) New Topic created by Producer
+>kafka-console-producer --broker-list 127.0.0.1:9092 --topic new_topic
+>New topic which doesnt exist
+[2018-10-26 22:44:08,914] WARN [Producer clientId=console-producer] Error whi
+fetching metadata with correlation id 1 : {new_topic=LEADER_NOT_AVAILABLE} (o
+apache.kafka.clients.NetworkClient)
+[2018-10-26 22:44:09,086] WARN [Producer clientId=console-producer] Error whi
+fetching metadata with correlation id 3 : {new_topic=LEADER_NOT_AVAILABLE} (o
+apache.kafka.clients.NetworkClient)
+[2018-10-26 22:44:09,211] WARN [Producer clientId=console-producer] Error whi
+fetching metadata with correlation id 4 : {new_topic=LEADER_NOT_AVAILABLE} (o
+apache.kafka.clients.NetworkClient)
+>next message
+>
+
+(10) Reading messages using kafka consumer (this read reall time)
+>kafka-console-producer --broker-list 127.0.0.1:9
+092 --topic first_topic
+
+(11) from beginning
+>Kafka-console-consumer --bootstrap-server 127.
+0.1:9092 --topic first_topic --from-beginning
+
+
+
+
