@@ -48,12 +48,31 @@ apache.kafka.clients.NetworkClient)
 >
 
 (10) Reading messages using kafka consumer (this read reall time)
->kafka-console-producer --broker-list 127.0.0.1:9
-092 --topic first_topic
+>kafka-console-producer --broker-list 127.0.0.1:9092 --topic first_topic
 
 (11) from beginning
->Kafka-console-consumer --bootstrap-server 127.
-0.1:9092 --topic first_topic --from-beginning
+>Kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic first_topic --from-beginning
+
+(12) For Consumer Group
+>Kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic first_topic --group my-first-applciation
+
+(13) Consumer Consumer Group  and from beginning
+>Kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic first_topic --group my-second-applciation --from-beginning
+
+(14) Kafka consumer group commnad
+>kafka-consumer-groups --bootstrap-server 127.0.0.1:9092 --list
+
+(15) Kafka consumer group commnad describe 
+K:\Kafka\Setup\kafka_2.12-2.0.0>kafka-consumer-groups --bootstrap-server localhost:9092 --describe --group my-first-application
+
+(16) Kafka Offset
+>kafka-consumer-groups --bootstrap-server localhost:9092 --group my-first-applciation --reset-offsets --to-earliest --execute --topic first_topic
+
+(17) Prodcuer by Key
+>kafka-console-producer --broker-list 127.0.0.1:9092 --topic first_topic --property parse.key=true --property key.separator=,
+
+(18) Consumer By Key
+>kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic first_topic --from-beginning --property print.key=true --property key.separator=,
 
 
 
