@@ -11,10 +11,13 @@ import com.twitter.hbc.core.endpoint.StatusesFilterEndpoint;
 import com.twitter.hbc.core.processor.StringDelimitedProcessor;
 import com.twitter.hbc.httpclient.auth.Authentication;
 import com.twitter.hbc.httpclient.auth.OAuth1;
+import org.apache.kafka.clients.producer.*;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -25,6 +28,8 @@ public class TwitterProducer {
     String consumerSecret ="rXCin19lDDnOGTc7r9XFfpziUNvzjRXyba2mQYhoeel0UAV9dr";
     String token ="89983730-XGiker0pIlvbQ7JpFonaBTXuIYsNa9wQsaBfqp3Pb";
     String secret ="WOuMDyfqIkYQc8dnbguRMXZkloNvJFcbfdag3x4AgZspF";
+    List<String> terms = Lists.newArrayList("Kafka");
+
     public TwitterProducer(){
 
     }
@@ -38,6 +43,14 @@ public class TwitterProducer {
         Client client = createTwitterClinet(msgQueue);
         client.connect();
 
+        KafkaProducer<String, String> producer = createKafkaProdcuer();
+
+         Runtime.getRuntime().addShutdownHook(new Thread(()-> {
+             loggger.info("Stopping app");
+             client.stop();
+             producer.close();
+         }));
+
         while (!client.isDone()) {
             String msg = null;
             try {
@@ -48,6 +61,16 @@ public class TwitterProducer {
             }
             if(msg !=null){
                 loggger.info(msg);
+
+                producer.send(new ProducerRecord<>("twitter_tweets", null, msg), new Callback() {
+                    @Override
+                    public void onCompletion(RecordMetadata recordMetadata, Exception e) {
+                        if(e !=null){
+                            loggger.error("Something bad happened ", e);
+                        }
+                    }
+                });
+
             }
 
 
@@ -56,13 +79,26 @@ public class TwitterProducer {
 
     }
 
+    public  KafkaProducer<String, String> createKafkaProdcuer() {
+        Properties properties = new Properties();
+        String serverAddress = "127.0.0.1:9092";
+        properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, serverAddress);
+        properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+
+
+        //Create producer
+        KafkaProducer<String,String> producer = new KafkaProducer<String, String>(properties);
+
+        return producer;
+    }
+
 
     public Client createTwitterClinet(BlockingQueue<String>  msgQueue){
 
         Hosts hosebirdHosts = new HttpHosts(Constants.STREAM_HOST);
         StatusesFilterEndpoint hosebirdEndpoint = new StatusesFilterEndpoint();
 // Optional: set up some followings and track terms
-        List<String> terms = Lists.newArrayList("Kafka");
         hosebirdEndpoint.trackTerms(terms);
 
 // These secrets should be read from a config file
