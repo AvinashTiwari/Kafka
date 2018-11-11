@@ -1,6 +1,5 @@
-package twitter.producer.comsumer;
+package producer;
 
-import avinash.learn.kafka.ConsumerDemoAssignSeek;
 import com.google.common.collect.Lists;
 import com.twitter.hbc.ClientBuilder;
 import com.twitter.hbc.core.Client;
