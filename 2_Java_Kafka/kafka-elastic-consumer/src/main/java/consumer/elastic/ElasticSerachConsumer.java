@@ -1,5 +1,6 @@
 package consumer.elastic;
 
+import com.google.gson.JsonParser;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -64,13 +65,17 @@ public class ElasticSerachConsumer {
         while(true){
             ConsumerRecords<String,String> records =  consumer.poll(Duration.ofMillis(100));
 
-            for(ConsumerRecord record: records){
-                 IndexRequest indexRequest = new IndexRequest("twitter","tweets")
+            for(ConsumerRecord<String,String>  record: records){
+
+              //  String id = record.topic()  + "_" + record.topic() + "_" + record.offset();
+                String id = extractIdFromTweet(record.value());
+                 IndexRequest indexRequest = new IndexRequest("twitter","tweets",
+                         id)
                         .source(record.value(), XContentType.JSON);
 
                 IndexResponse indexResponse = client.index(indexRequest, RequestOptions.DEFAULT);
-                String id = indexResponse.getId();
-                loggger.info(id);
+                //String id = indexResponse.getId();
+                loggger.info(indexResponse.getId());
 
                 try {
                     Thread.sleep(1000);
@@ -84,6 +89,14 @@ public class ElasticSerachConsumer {
 
 
       //  client.close();
+    }
+
+   private static JsonParser jsonParser = new JsonParser();
+    private static String extractIdFromTweet(String tweetJson) {
+        return jsonParser.parse(tweetJson)
+                .getAsJsonObject()
+                .get("id_str")
+                .getAsString();
     }
 
     public static KafkaConsumer<String, String > createConsumer(String topic){
