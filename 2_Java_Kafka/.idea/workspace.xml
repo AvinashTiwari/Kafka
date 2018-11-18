@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c9d7fab4-48d5-49ce-9415-743c6f6d0f7c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kafka-elastic-consumer/src/main/java/consumer/elastic/ElasticSerachConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-elastic-consumer/src/main/java/consumer/elastic/ElasticSerachConsumer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kafka-elastic-consumer/target/classes/consumer/elastic/ElasticSerachConsumer$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kafka-elastic-consumer/target/classes/consumer/elastic/ElasticSerachConsumer.class" beforeDir="false" />
-    </list>
+    <list default="true" id="c9d7fab4-48d5-49ce-9415-743c6f6d0f7c" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/kafka-basic/target/" />
@@ -24,7 +19,7 @@
     <session id="960315222">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="24" />
+          <entry key="project.closed" value="25" />
           <entry key="project.open.time.100" value="1" />
           <entry key="project.open.time.107" value="1" />
           <entry key="project.open.time.110" value="1" />
@@ -341,16 +336,15 @@
       <workItem from="1542149065620" duration="1198000" />
       <workItem from="1542150540902" duration="2480000" />
       <workItem from="1542509432384" duration="2941000" />
-      <workItem from="1542573976818" duration="1509000" />
+      <workItem from="1542573976818" duration="2108000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34139000" />
+    <option name="totallyTimeSpent" value="34738000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.35854766" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
