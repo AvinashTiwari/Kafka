@@ -25,8 +25,7 @@
 >Just amessage
 
 (8) ack kafka producer properties
->kafka-console-producer --broker-list 127.0.0.1:90
-92 --topic first_topic --producer-property acks-all
+>kafka-console-producer --broker-list 127.0.0.1:9092 --topic first_topic --producer-property acks-all
 [2018-10-26 22:41:34,964] WARN The configuration 'acks-all' was supplied but isn
 't a known config. (org.apache.kafka.clients.producer.ProducerConfig)
 >Some message that ack
@@ -74,6 +73,7 @@ K:\Kafka\Setup\kafka_2.12-2.0.0>kafka-consumer-groups --bootstrap-server localho
 (18) Consumer By Key
 >kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic first_topic --from-beginning --property print.key=true --property key.separator=,
 
-
+(18) Reset offsets
+kafka-consumer-groups --bootstrap-server 127.0.0.1:9092 --group kafka-demo-elasticsearch --reset-offsets --execute --to-earliest --topic twitter_tweets
 
 
