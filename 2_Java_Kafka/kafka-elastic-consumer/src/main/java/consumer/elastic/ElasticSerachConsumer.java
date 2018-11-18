@@ -1,4 +1,4 @@
-package avinash.learn.elastic.search.consumer;
+package consumer.elastic;
 
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
