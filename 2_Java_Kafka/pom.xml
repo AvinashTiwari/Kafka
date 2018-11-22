@@ -22,6 +22,7 @@
     </build>
     <modules>
         <module>kafka-elastic-consumer</module>
+        <module>Kafka-stream-filter-tweets</module>
     </modules>
 
     <dependencies>
