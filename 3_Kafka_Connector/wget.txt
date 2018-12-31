@@ -1,0 +1,7 @@
+wget https://raw.githubusercontent.com/AvinashTiwari/Kafka/master/3_Kafka_Connector/1_File_Source_Connector/docker-compose.yml
+
+wget https://raw.githubusercontent.com/AvinashTiwari/Kafka/master/3_Kafka_Connector/1_File_Source_Connector/kafka-connect-tutorial-sinks.sh
+
+wget https://raw.githubusercontent.com/AvinashTiwari/Kafka/master/3_Kafka_Connector/1_File_Source_Connector/kafka-connect-tutorial-sources.sh
+
+kafka-topics --create --topic demo-1-standalone --partitions 3 --replication-factor 1 --zookeeper 192.168.99.100:2181
