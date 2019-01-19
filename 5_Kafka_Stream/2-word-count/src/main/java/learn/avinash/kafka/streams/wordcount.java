@@ -30,7 +30,7 @@ public class wordcount {
         .groupByKey()
         .count("Counts");
 
-        wordCounts.to(Serdes.String(), Serdes.Long(),"word-count-input");
+        wordCounts.to(Serdes.String(), Serdes.Long(),"word-count-output");
 
         KafkaStreams streams = new KafkaStreams(builder,config);
         streams.start();

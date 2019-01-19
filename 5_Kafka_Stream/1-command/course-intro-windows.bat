@@ -11,12 +11,15 @@ bin\windows\kafka-server-start.bat config\server.properties
 
 rem create input topic
 bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic streams-plaintext-input
+bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 2 --topic word-count-input
+bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 2 --topic word-count-output
 
 rem create output topic
 bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic streams-wordcount-output
 
 rem start a kafka producer
 bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic streams-plaintext-input
+bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic word-count-input
 rem enter
 kafka streams udemy
 kafka data processing
@@ -29,6 +32,16 @@ bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic
 rem start a consumer on the output topic
 bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 ^
     --topic streams-wordcount-output ^
+    --from-beginning ^
+    --formatter kafka.tools.DefaultMessageFormatter ^
+    --property print.key=true ^
+    --property print.value=true ^
+    --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer ^
+    --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer
+	
+	
+	bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 ^
+    --topic word-count-output ^
     --from-beginning ^
     --formatter kafka.tools.DefaultMessageFormatter ^
     --property print.key=true ^
