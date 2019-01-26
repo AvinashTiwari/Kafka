@@ -14,12 +14,20 @@ bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-f
 bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 2 --topic word-count-input
 bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 2 --topic word-count-output
 
+bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic favourite-colour-input
+bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic user-keys-and-colours --config cleanup.policy=compact
+bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic favourite-colour-output --config cleanup.policy=compact
+ 
+
+bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 2 --topic favourite-colour-input
 rem create output topic
 bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic streams-wordcount-output
 
 rem start a kafka producer
 bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic streams-plaintext-input
 bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic word-count-input
+bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic favourite-colour-input
+
 rem enter
 kafka streams udemy
 kafka data processing
@@ -49,6 +57,18 @@ bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 ^
     --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer ^
     --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer
 
+	
+	
+	bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 ^
+    --topic favourite-colour-output ^
+    --from-beginning ^
+    --formatter kafka.tools.DefaultMessageFormatter ^
+    --property print.key=true ^
+    --property print.value=true ^
+    --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer ^
+    --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer
+
+	
 rem start the streams application
 bin\windows\kafka-run-class.bat org.apache.kafka.streams.examples.wordcount.WordCountDemo
 
