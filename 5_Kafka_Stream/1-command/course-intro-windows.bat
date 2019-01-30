@@ -14,12 +14,18 @@ bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-f
 bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 2 --topic word-count-input
 bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 2 --topic word-count-output
 bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 2 --topic bank-transactions
+bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 3 --topic user-purchasess
+
+
 
 bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic favourite-colour-input
 bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic user-keys-and-colours --config cleanup.policy=compact
 bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic favourite-colour-output --config cleanup.policy=compact
 bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic bank-balance-exactly-once --config cleanup.policy=compact
-
+bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 2 --topic user-table --config cleanup.policy=compact
+bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 2 --topic user-purchases-enriched-inner-join --config cleanup.policy=compact
+bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 2 --topic user-purchases-enriched-left-join --config cleanup.policy=compact
+bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 2 --topic user-purchases --config cleanup.policy=compact
  
 
 bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 2 --topic favourite-colour-input
@@ -83,7 +89,31 @@ bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 ^
 	
 	bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 ^
     --topic bank-transactions ^
+    --from-beginning
+	
+	
+	
+	
+	bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 ^
+    --topic user-purchases-enriched-left-join ^
     --from-beginning ^
+    --formatter kafka.tools.DefaultMessageFormatter ^
+    --property print.key=true ^
+    --property print.value=true ^
+    --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer ^
+    --property value.deserializer=org.apache.kafka.common.serialization.StringDeserializer
+	
+	
+	bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 ^
+    --topic user-purchases-enriched-inner-join ^
+    --from-beginning ^
+    --formatter kafka.tools.DefaultMessageFormatter ^
+    --property print.key=true ^
+    --property print.value=true ^
+    --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer ^
+    --property value.deserializer=org.apache.kafka.common.serialization.StringDeserializer
+	
+	
 	
 rem start the streams application
 bin\windows\kafka-run-class.bat org.apache.kafka.streams.examples.wordcount.WordCountDemo
