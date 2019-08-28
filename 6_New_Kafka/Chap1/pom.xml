@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>avinash.learn.kafka</groupId>
+    <artifactId>chap1-kafka</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>0.10.0.1</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <!-- <plugin>
+    <groupId>com.spotify</groupId>
+    <artifactId>docker-maven-plugin</artifactId>
+   <version>0.2.3</version>
+  <executions>
+      <execution>
+          <phase>package</phase>
+          <goals>
+              <goal>build</goal>
+          </goals>
+      </execution>
+  </executions>
+    <configuration>
+      <imageName>bootkafka</imageName>
+      <baseImage>java</baseImage>
+      <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+      copy the service's jar file from target into the root directory of the image
+      <resources>
+         <resource>
+           <targetPath>/</targetPath>
+           <directory>${project.build.directory}</directory>
+           <include>${project.build.finalName}.jar</include>
+         </resource>
+      </resources>
+    </configuration>
+  </plugin> -->
+
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.16.7</version>
+                <configuration>
+
+                    <images>
+                        <image>
+                            <name>arquillian/age-checker:${project.version}</name>
+                            <build>
+                                <dockerFileDir>${project.basedir}</dockerFileDir>
+                            </build>
+                        </image>
+                    </images>
+                </configuration>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+
+</project>
